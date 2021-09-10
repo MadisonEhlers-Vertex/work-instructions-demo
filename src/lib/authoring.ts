@@ -48,7 +48,7 @@ export async function initializeScene({
   const scene = await viewer.scene();
   if (scene == null) return;
 
-  const { camera, sceneItemsVisible } = head(
+  const { camera } = head(
     Object.values(InstructionSteps).filter((v) => v.step === 4)
   );
 
@@ -56,15 +56,6 @@ export async function initializeScene({
     .camera()
     .flyTo({ camera })
     .render({ animation: { milliseconds: AnimationDurationMs } });
-
-  await scene
-    .items((op) => {
-      return [
-        op.where((q) => q.all()).hide(),
-        op.where((q) => q.withSuppliedIds(sceneItemsVisible)).show(),
-      ];
-    })
-    .execute();
 }
 
 export async function renderPartRevision({

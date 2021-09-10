@@ -1,5 +1,5 @@
 import { ContentHeader } from "@components/ContentHeader";
-import { InstructionStep } from "@lib/work-instructions";
+import { InstructionStep, InstructionSteps } from "@lib/work-instructions";
 import { Box, Button, List, Typography } from "@material-ui/core";
 import {
   MapOutlined,
@@ -11,17 +11,16 @@ import React from "react";
 interface Props {
   readonly onBeginAssembly: () => void;
   readonly onClose: () => void;
-  readonly onShow: (name: string, ids: string[]) => void;
   readonly step?: InstructionStep;
 }
 
 export function Instructions({
   onBeginAssembly,
   onClose,
-  onShow,
   step,
 }: Props): JSX.Element {
-  const numSteps = 4;
+  console.log(Object.keys(InstructionSteps));
+  const numSteps = Object.keys(InstructionSteps).length;
 
   function NoContent(): JSX.Element {
     return step == null ? (
@@ -67,7 +66,7 @@ export function Instructions({
       )}
       {step.instructions != null ? (
         <List>
-          {step.instructions(onShow).map((t, i) => (
+          {step.instructions.map((t, i) => (
             <Typography key={i} sx={{ mb: 2 }}>
               {`${i + 1}. `}
               {t}

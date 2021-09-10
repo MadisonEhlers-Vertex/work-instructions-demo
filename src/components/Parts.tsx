@@ -1,8 +1,6 @@
-import { ContentHeader } from "@components/ContentHeader";
 import { NoStepActive } from "@components/NoStepActive";
 import { InstructionStep } from "@lib/work-instructions";
-import { Link, Typography } from "@material-ui/core";
-import { head } from "@vertexvis/api-client-node";
+import { Typography } from "@material-ui/core";
 import React from "react";
 
 interface Props {
@@ -20,39 +18,5 @@ export function Parts({ onClose, onShow, step }: Props): JSX.Element {
     );
   }
 
-  const stepNum = step?.step ? `Step ${step.step} ` : "";
-  return (
-    <>
-      <ContentHeader onClose={onClose} title={`${stepNum} Parts`} />
-      {step?.parts != null && step.parts.length > 0 ? (
-        step?.parts.map((p, i) => (
-          <Link
-            color="inherit"
-            key={i}
-            onClick={() => onShow(p.name, p.sceneItemSuppliedIds)}
-            sx={{
-              alignItems: "center",
-              cursor: "pointer",
-              display: "flex",
-            }}
-            underline="none"
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              alt={`Part revision thumbnail for scene item ${head(
-                p.sceneItemSuppliedIds
-              )}`}
-              height={120}
-              src={`/${head(p.sceneItemSuppliedIds)}.png`}
-            />
-            <Typography
-              sx={{ mb: 2 }}
-            >{`${p.name} x ${p.quantity}`}</Typography>
-          </Link>
-        ))
-      ) : (
-        <NoContent />
-      )}
-    </>
-  );
+  return <NoContent />;
 }

@@ -1,7 +1,4 @@
-/* @jsx jsx */ /** @jsxRuntime classic */ import {
-  ArrowDown,
-  ArrowUp,
-} from "@components/Arrow";
+/* @jsx jsx */ /** @jsxRuntime classic */
 import { InstructionSpeedDial } from "@components/InstructionSpeedDial";
 import { Stations } from "@components/Stations";
 import { ViewerSpeedDial } from "@components/ViewerSpeedDial";
@@ -90,18 +87,9 @@ function UnwrappedViewer({
       <VertexViewerToolbar placement="bottom-right">
         <ViewerSpeedDial onClick={onClick} viewer={viewer} />
       </VertexViewerToolbar>
-      <VertexViewerDomRenderer>
-        {instructionStep?.arrows?.map((a, i) => (
-          <VertexViewerDomElement
-            key={i}
-            positionJson={JSON.stringify(a.position)}
-            rotationJson={JSON.stringify(a.rotation)}
-            billboardOff={true}
-          >
-            {a.type === "down" ? <ArrowDown /> : <ArrowUp />}
-          </VertexViewerDomElement>
-        ))}
-      </VertexViewerDomRenderer>
+      {/* <VertexViewerDomRenderer drawMode="3d">
+        {instructionStep?.viewerDomRenderElements?.map((el) => {el})}
+      </VertexViewerDomRenderer> */}
     </VertexViewer>
   );
 }
