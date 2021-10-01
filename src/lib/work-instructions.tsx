@@ -9,5 +9,23 @@ export interface InstructionStep {
   readonly title: string;
 }
 
-export const InstructionSteps: Record<string, InstructionStep> =
-  workInstructions;
+export interface WorkInstructionsSummary {
+  title: string;
+  description: string;
+  numParts: number;
+  timeToComplete: string;
+  streamKey: string;
+  workInstructions: Record<string, InstructionStep>
+}
+
+
+// export const streamKey = workInstructions.streamKey;
+
+export const workInstructionsSummary: WorkInstructionsSummary = {
+  title: workInstructions["title"],
+  numParts: workInstructions["numParts"],
+  description: workInstructions["description"],
+  timeToComplete: workInstructions["timeToComplete"],
+  streamKey: workInstructions.streamKey, 
+  workInstructions: workInstructions["workInstructions"],
+};

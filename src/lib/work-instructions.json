@@ -1,57 +1,66 @@
 {
-  "step-1": {
-    "camera": {
-      "position": {
-        "x": -955.7966918945312,
-        "y": 520.9080200195312,
-        "z": 368.5772399902344
+  "clientId": "08F675C4AACE8C0214362DB5EFD4FACAFA556D463ECA00877CB225157EF58BFA",
+  "streamKey": "cEGp505foa8t6Y-1jIcClhkgstTpNoRYlMsg",
+  "description": "At this station, the assembly technician assembles the spindle and installs it on the vehicle.",
+  "title": "Spindle Install",
+  "numParts": 16,
+  "timeToComplete": "5 minutes",
+
+  "workInstructions": {
+    "step-1": {
+      "camera": {
+        "position": {
+          "x": -955.7966918945312,
+          "y": 520.9080200195312,
+          "z": 368.5772399902344
+        },
+        "lookAt": {
+          "x": -1377.415771484375,
+          "y": 794.2061767578125,
+          "z": 236.43722534179688
+        },
+        "up": {
+          "x": -0.2708650827407837,
+          "y": 0.0470057874917984,
+          "z": 0.9614689350128174
+        }
       },
-      "lookAt": {
-        "x": -1377.415771484375,
-        "y": 794.2061767578125,
-        "z": 236.43722534179688
-      },
-      "up": {
-        "x": -0.2708650827407837,
-        "y": 0.0470057874917984,
-        "z": 0.9614689350128174
-      }
+      "instructions": [
+        "Install three (3) M12x1.25 mm torx head bolts in the Z06 inner hub with Loctite® Threadlocker 271™.",
+        "Using a T55 socket, torque the bolts to 75 ft/lbs."
+      ],
+      "sceneViewStateId": "49679fc2-2b98-4c39-ac21-cf8102dd39cc",
+      "step": 1,
+      "title": "Install the inner hub on the spindle"
     },
-    "instructions": [
-      "Install three (3) M12x1.25 mm torx head bolts in the Z06 inner hub with Loctite® Threadlocker 271™.",
-      "Using a T55 socket, torque the bolts to 75 ft/lbs."
-    ],
-    "sceneViewStateId": "49679fc2-2b98-4c39-ac21-cf8102dd39cc",
-    "step": 1,
-    "title": "Install the inner hub on the spindle"
-  },
-  "step-2": {
-    "camera": {
-      "position": {
-        "x": -901.5206298828125,
-        "y": 660.30810546875,
-        "z": 396.15740966796875
+    "step-2": {
+      "camera": {
+        "position": {
+          "x": -901.5206298828125,
+          "y": 660.30810546875,
+          "z": 396.15740966796875
+        },
+        "lookAt": {
+          "x": -1377.415771484375,
+          "y": 794.2061767578125,
+          "z": 236.43722534179688
+        },
+        "up": {
+          "x": -0.31933844089508057,
+          "y": -0.0046013714745640755,
+          "z": 0.9476295113563538
+        }
       },
-      "lookAt": {
-        "x": -1377.415771484375,
-        "y": 794.2061767578125,
-        "z": 236.43722534179688
-      },
-      "up": {
-        "x": -0.31933844089508057,
-        "y": -0.0046013714745640755,
-        "z": 0.9476295113563538
-      }
-    },
-    "instructions": [
-      "Clean the ID of the spindle and the OD of the ball joints with brake cleaner and degreaser.",
-      "Wipe clean with a lint free shop towel.",
-      "Install the washers and castle nuts on the ball joints.",
-      "Torque the castle nuts to 30 ft/lbs and turn it an additional 140°.",
-      "Ensure the castle nut notch lines up with the hole in the ball joints and install a cotter pin."
-    ],
-    "sceneViewStateId": "e146181e-2809-42b9-87f1-24d2bd25bef2",
-    "step": 2,
-    "title": "Install the spindle on the ball joints"
+      "instructions": [
+        "Clean the ID of the spindle and the OD of the ball joints with brake cleaner and degreaser.",
+        "Wipe clean with a lint free shop towel.",
+        "Install the washers and castle nuts on the ball joints.",
+        "Torque the castle nuts to 30 ft/lbs and turn it an additional 140°.",
+        "Ensure the castle nut notch lines up with the hole in the ball joints and install a cotter pin."
+      ],
+      "sceneViewStateId": "e146181e-2809-42b9-87f1-24d2bd25bef2",
+      "step": 2,
+      "title": "Install the spindle on the ball joints"
+    }
   }
 }

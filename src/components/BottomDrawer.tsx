@@ -1,5 +1,6 @@
 import { BottomDrawerHeight } from "@components/Layout";
-import { InstructionSteps } from "@lib/work-instructions";
+import { WorkInstructionsSummary } from "@lib/work-instructions";
+// import { InstructionSteps } from "@lib/work-instructions";
 import {
   Box,
   Drawer as MuiDrawer,
@@ -18,6 +19,7 @@ interface Props {
   readonly onSelect: (activeStep: number) => void;
   readonly ready: boolean;
   readonly stepIds: string[];
+  readonly instructions: WorkInstructionsSummary;
 }
 
 const BtnMargin = 5;
@@ -31,7 +33,10 @@ export function BottomDrawer({
   onSelect,
   ready,
   stepIds,
+  instructions,
 }: Props): JSX.Element {
+
+  console.log('herere', instructions);
   function PrevBtn() {
     return (
       <Fab
@@ -82,29 +87,29 @@ export function BottomDrawer({
   }
 
   function Steps() {
-    return (
-      <Stepper activeStep={activeStep} alternativeLabel sx={{ flexGrow: 1 }}>
-        {Object.keys(InstructionSteps).map((k) => {
-          return (
-            <Step key={k}>
-              <StepButton
-                disabled={false}
-                onClick={() => onSelect(InstructionSteps[k].step - 1)}
-              >
-                <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    height={120}
-                    key={k}
-                    src={`/${k}.png`}
-                    alt={`Step ${InstructionSteps[k].step}`}
-                  />
-                </Box>
-              </StepButton>
-            </Step>
-          );
-        })}
-      </Stepper>
+    return ( <div/>
+      // <Stepper activeStep={activeStep} alternativeLabel sx={{ flexGrow: 1 }}>
+      //   {Object.keys(instructions.workInstructions).map((k) => {
+      //     return (s
+      //       <Step key={k}>
+      //         <StepButton
+      //           disabled={false}
+      //           onClick={() => onSelect(instructions.workInstructions[k].step - 1)}
+      //         >
+      //           <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
+      //             {/* eslint-disable-next-line @next/next/no-img-element */}
+      //             <img
+      //               height={120}
+      //               key={k}
+      //               src={`/${k}.png`}
+      //               alt={`Step ${instructions.workInstructions[k].step}`}
+      //             />
+      //           </Box>
+      //         </StepButton>
+      //       </Step>
+      //     );
+      //   })}
+      // </Stepper>
     );
   }
 

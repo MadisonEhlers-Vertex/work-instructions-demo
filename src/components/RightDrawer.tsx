@@ -6,6 +6,8 @@ import { InstructionStep } from "@lib/work-instructions";
 import { Box, Drawer } from "@material-ui/core";
 import { drawerClasses } from "@material-ui/core/Drawer";
 import React from "react";
+import { WorkInstructionsSummary } from "@lib/work-instructions";
+
 
 export type Content = "settings" | "instructions" | "parts";
 
@@ -17,6 +19,7 @@ interface Props {
   readonly open: boolean;
   readonly onShow: (name: string, ids: string[]) => void;
   readonly settings: SettingsProps;
+  readonly wi: WorkInstructionsSummary;
 }
 
 export function RightDrawer({
@@ -27,6 +30,7 @@ export function RightDrawer({
   open,
   onShow,
   settings,
+  wi,
 }: Props): JSX.Element {
   if (content == null) return <></>;
 
@@ -36,9 +40,10 @@ export function RightDrawer({
     if (content === "instructions")
       return (
         <Instructions
+          wi={wi}
           onBeginAssembly={onBeginAssembly}
           onClose={onClose}
-          onShow={onShow}
+          // onShow={onShow}
           step={instructionStep}
         />
       );

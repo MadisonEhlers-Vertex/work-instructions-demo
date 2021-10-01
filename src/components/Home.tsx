@@ -14,16 +14,20 @@ import {
   renderPartRevision,
   RenderPartRevisionReq,
 } from "@lib/authoring";
-import { Configuration, Credentials } from "@lib/config";
+import { Configuration } from "@lib/config";
 import {
   flyTo,
   handleHit as onSelect,
   selectBySuppliedIds,
 } from "@lib/scene-items";
 import { useViewer } from "@lib/viewer";
-import { InstructionStep, InstructionSteps } from "@lib/work-instructions";
+import {
+  InstructionStep, WorkInstructionsSummary,
+  // InstructionSteps,
+  // streamKey,
+} from "@lib/work-instructions";
 import { Snackbar } from "@material-ui/core";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 export function Home({ authoring, vertexEnv }: Configuration): JSX.Element {
   const viewer = useViewer();
@@ -45,7 +49,20 @@ export function Home({ authoring, vertexEnv }: Configuration): JSX.Element {
   const [selected, setSelected] = React.useState<RenderPartRevisionReq>({});
   const [partName, setPartName] = React.useState<string | undefined>();
 
-  const stepIds = Object.keys(InstructionSteps);
+  const [wi, setWi] = useState<WorkInstructionsSummary>();
+ 
+  useEffect(() => {
+    const fetchWi = async () => {
+      const result = await fetch('/api/instructions');
+      const data = await result.json();
+      console.log('data: ', data);
+      setWi(data);
+    }
+    fetchWi();
+ 
+  }, []);
+
+  const stepIds = Object.keys(wi?.workInstructions || []);
 
   React.useEffect(() => {
     setPartName(selected?.part?.name);
@@ -66,7 +83,7 @@ export function Home({ authoring, vertexEnv }: Configuration): JSX.Element {
   async function onInstructionStepSelected(num: number): Promise<void> {
     if (!ready) return;
 
-    const step = InstructionSteps[stepIds[num]];
+    const step = wi?.workInstructions[stepIds[num]];
     setReady(false);
     function onComplete() {
       setActiveStep({ num, step });
@@ -87,12 +104,13 @@ export function Home({ authoring, vertexEnv }: Configuration): JSX.Element {
   return (
     <Layout
       bottomDrawer={
-        <BottomDrawer
-          activeStep={activeStep.num}
-          onSelect={onInstructionStepSelected}
-          ready={ready}
-          stepIds={stepIds}
-        />
+        wi == null ? <div/>: <BottomDrawer
+        activeStep={activeStep.num}
+        onSelect={onInstructionStepSelected}
+        ready={ready}
+        stepIds={stepIds}
+        instructions={wi}
+      />
       }
       bottomDrawerHeight={BottomDrawerHeight}
       header={
@@ -109,7 +127,7 @@ export function Home({ authoring, vertexEnv }: Configuration): JSX.Element {
         viewer.isReady && (
           <Viewer
             configEnv={vertexEnv}
-            credentials={Credentials}
+            streamKey={wi?.streamKey || ''}
             onClick={(button) => {
               if (
                 button === "settings" ||
@@ -157,18 +175,19 @@ export function Home({ authoring, vertexEnv }: Configuration): JSX.Element {
         )
       }
       rightDrawer={
-        <RightDrawer
-          content={rightDrawerContent}
-          instructionStep={activeStep.step}
-          onBeginAssembly={handleBeginAssembly}
-          onClose={() => setRightDrawerContent(undefined)}
-          open={rightDrawerContent != null}
-          onShow={(name, ids) => {
-            setPartName(name);
-            selectBySuppliedIds({ ids, viewer: viewer.ref.current });
-          }}
-          settings={{ ghosted, onGhostToggle: setGhosted }}
-        />
+        wi == null ? <div/> : <RightDrawer
+        content={rightDrawerContent}
+        wi={wi}
+        instructionStep={activeStep.step}
+        onBeginAssembly={handleBeginAssembly}
+        onClose={() => setRightDrawerContent(undefined)}
+        open={rightDrawerContent != null}
+        onShow={(name, ids) => {
+          setPartName(name);
+          selectBySuppliedIds({ ids, viewer: viewer.ref.current });
+        }}
+        settings={{ ghosted, onGhostToggle: setGhosted }}
+      />
       }
       rightDrawerWidth={rightDrawerContent != null ? RightDrawerWidth : 0}
     >

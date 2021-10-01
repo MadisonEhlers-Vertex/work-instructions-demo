@@ -1,34 +1,42 @@
 import { ContentHeader } from "@components/ContentHeader";
-import { InstructionStep, InstructionSteps } from "@lib/work-instructions";
+import {
+  InstructionStep,
+  WorkInstructionsSummary,
+} from "@lib/work-instructions";
+
 import { Box, Button, List, Typography } from "@material-ui/core";
 import {
   MapOutlined,
   TimerOutlined,
   WidgetsOutlined,
 } from "@material-ui/icons";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 interface Props {
   readonly onBeginAssembly: () => void;
   readonly onClose: () => void;
   readonly step?: InstructionStep;
+  readonly wi: WorkInstructionsSummary;
+
 }
 
 export function Instructions({
   onBeginAssembly,
   onClose,
   step,
+  wi,
 }: Props): JSX.Element {
-  console.log(Object.keys(InstructionSteps));
-  const numSteps = Object.keys(InstructionSteps).length;
+  const numSteps = Object.keys(wi?.workInstructions || []).length;
 
   function NoContent(): JSX.Element {
-    return step == null ? (
+    return step == null && wi != null ? (
       <>
-        <ContentHeader onClose={onClose} title="Spindle Install" />
+        <ContentHeader
+          onClose={onClose}
+          title={wi.title}
+        />
         <Typography sx={{ mb: 6 }}>
-          At this station, the assembly technician assembles the spindle and
-          installs it on the vehicle.
+          {wi.description}
         </Typography>
         <Box sx={{ display: "flex", mb: 2 }}>
           <MapOutlined sx={{ mr: 1 }} />
@@ -36,11 +44,13 @@ export function Instructions({
         </Box>
         <Box sx={{ display: "flex", mb: 2 }}>
           <WidgetsOutlined sx={{ mr: 1 }} />
-          <Typography>15 parts</Typography>
+          <Typography>{wi.numParts} parts</Typography>
         </Box>
         <Box sx={{ display: "flex", mb: 6 }}>
           <TimerOutlined sx={{ mr: 1 }} />
-          <Typography>5 minutes to complete</Typography>
+          <Typography>
+            {wi.timeToComplete} to complete
+          </Typography>
         </Box>
         <Box sx={{ display: "flex", justifyContent: "center" }}>
           <Button onClick={() => onBeginAssembly()} variant="contained">

@@ -1,5 +1,5 @@
 import { AnimationDurationMs } from "@lib/scene-items";
-import { InstructionSteps } from "@lib/work-instructions";
+// import { InstructionSteps } from "@lib/work-instructions";
 import { head } from "@vertexvis/api-client-node";
 import type { Components } from "@vertexvis/viewer";
 
@@ -48,13 +48,9 @@ export async function initializeScene({
   const scene = await viewer.scene();
   if (scene == null) return;
 
-  const { camera } = head(
-    Object.values(InstructionSteps).filter((v) => v.step === 4)
-  );
-
   await scene
     .camera()
-    .flyTo({ camera })
+    // .flyTo({ camera })
     .render({ animation: { milliseconds: AnimationDurationMs } });
 }
 

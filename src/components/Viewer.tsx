@@ -11,14 +11,12 @@ import type { TapEventDetails } from "@vertexvis/viewer";
 import {
   JSX as ViewerJSX,
   VertexViewer,
-  VertexViewerDomElement,
-  VertexViewerDomRenderer,
   VertexViewerToolbar,
 } from "@vertexvis/viewer-react";
 import React from "react";
 
 interface ViewerProps extends ViewerJSX.VertexViewer {
-  readonly credentials: StreamCredentials;
+  readonly streamKey: string;
   readonly instructionStep?: InstructionStep;
   readonly onClick: (button: ToolButtons) => void;
   readonly viewer: React.MutableRefObject<HTMLVertexViewerElement | null>;
@@ -49,21 +47,20 @@ export const AnimationDurationMs = 1500;
 export const Viewer = onTap(UnwrappedViewer);
 
 function UnwrappedViewer({
-  credentials,
+  streamKey,
   onClick,
   instructionStep,
   viewer,
   ...props
 }: ViewerProps): JSX.Element {
   const svId = instructionStep?.sceneViewStateId;
-  const src = `urn:vertexvis:stream-key:${credentials.streamKey}${
+  const src = `urn:vertexvis:stream-key:${streamKey}${
     svId ? `?scene-view-state=${svId}` : ""
   }`;
 
   return (
     <VertexViewer
       css={{ height: "100%", width: "100%" }}
-      clientId={credentials.clientId}
       ref={viewer}
       src={src}
       {...props}
